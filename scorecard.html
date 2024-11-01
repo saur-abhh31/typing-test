@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scorecard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="scorecard-container">
+        <div class="scorecard">
+            <h2>Typing Test Scorecard</h2>
+            <div class="score-details" id="scoreDetails">
+                <!-- Result details will be populated here -->
+            </div>
+            <button onclick="window.location.href='index.html'">Try Again</button>
+        </div>
+    </div>
+
+    <script>
+        // Parse URL parameters to get score data
+        const urlParams = new URLSearchParams(window.location.search);
+        const wpm = urlParams.get('wpm');
+        const accuracy = urlParams.get('accuracy');
+        const errors = urlParams.get('errors');
+
+        const minPassingSpeed = 35;
+        const resultStatus = wpm > minPassingSpeed ? "Pass" : "Fail";
+
+        // Populate score details
+        const scoreDetails = document.getElementById("scoreDetails");
+        scoreDetails.innerHTML = `
+            <p>Words Per Minute (WPM): ${wpm}</p>
+            <p>Accuracy: ${accuracy}%</p>
+            <p>Errors: ${errors}</p>
+            <p>Minimum Passing Speed (MPS): ${minPassingSpeed} WPM</p>
+            <h3 style="color: ${resultStatus === 'Pass' ? 'green' : 'red'}">Result: ${resultStatus}</h3>
+        `;
+    </script>
+</body>
+</html>
